@@ -3,23 +3,29 @@ import classes from './cell.module.css';
 import {ListItemButton} from "@mui/material";
 
 
-const Cell = ({setErrorCell, removeHideCell,
-                markCell, cell,trueInVertical2Memoized,
+const Cell = ({setErrorCell,errorCell,setYellowPomark, removeHideCell,
+                markCell, cell,
+                trueInCub2Memoized,
+                trueInVertical2Memoized,
                 trueInHorizontal2Memoized,setMarkCell,isCellError,
-                isActiveNumber, isActiveRowCell,
+                isActiveNumber,yellowPomark, isActiveRowCell,
                 isActiveColCell, isActive,
                 isActiveaBoxCell, isCellHidden,
                 onClick, activeCellHidden
 }) => {
+
   const getErrorCell = () => {
     const newHErrorCells = [];
 
     const horizontalResult = trueInHorizontal2Memoized(markCell);
-
+    const boxResult = trueInCub2Memoized(markCell)
     const verticalResult = trueInVertical2Memoized(markCell);
     // console.log(verticalResult)
     if (horizontalResult) {
       newHErrorCells.push(horizontalResult);
+    }
+    if (boxResult) {
+      newHErrorCells.push(boxResult);
     }
 
     if (verticalResult) {
@@ -46,23 +52,20 @@ const Cell = ({setErrorCell, removeHideCell,
   useEffect(() => {
     if (isCellHidden && markCell && isActive && markCell !== cell) {
       let irr = getErrorCell();
-      setErrorCell(irr);
+      setErrorCell(irr)
+
+
     }
   }
 , [isCellHidden, markCell, isActive, cell]);
   const getCellNumber = () => {
+
     if (isCellHidden && markCell && isActive) {
       if(markCell === cell){
-        console.log(markCell);
+
         removeHideCell();
         return cell;
-      } else {
-          removeHideCell()
-          return markCell
       }
-
-
-
     }
     return isCellHidden ? '' : cell;
   };

@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import FlexBox from "../FlexBox/FlexBox.jsx";
 import classes from './board.module.css'
-import sudokuStart, {true_in_horizontal_2, true_in_vertical_2} from '../../utils/generate-massiv.js'
+import sudokuStart, {true_in_cub_2, true_in_horizontal_2, true_in_vertical_2} from '../../utils/generate-massiv.js'
 import CellBig from "../cell/CellBig.jsx";
 import Cell from "../cell/Cell.jsx";
 import {v4} from 'uuid';
@@ -25,6 +25,7 @@ const Board = () => {
   const [activeCellHidden, setActiveCellHidden] = useState(false)
   const [markCell, setMarkCell] = useState('')
   const [errorCell, setErrorCell] = useState([])
+  const [yellowPomark, setYellowPomark] = useState(null)
 
   useEffect(() => {
     setHiddenCells(generateHiddenCells());
@@ -37,6 +38,7 @@ const Board = () => {
     setActiveColCel(null)
     setActiveBoxCell(null)
     setActiveNumber(null)
+    setErrorCell([])
   }
   function generateHiddenCells() {
     const newHiddenCells = [];
@@ -74,6 +76,7 @@ const Board = () => {
     } else{
       setActiveCellHidden(false)
     }
+
     setMarkCell(null)
     // Устанавливаем новую активную клетку
     setActiveNumber(cell)
@@ -81,6 +84,7 @@ const Board = () => {
     setActiveRowCell({indexMiddle, index})
     setActiveColCel({indexBig, indexCells})
     setActiveCell({ indexBig, indexMiddle, indexCells, index });
+    setErrorCell([])
   };
   return (
     <FlexBox>
@@ -101,12 +105,13 @@ const Board = () => {
                           {cells.map((cell, index) => {
                             const trueInVertical2Memoized = useMemo(() => (mark) => true_in_vertical_2(mark, sudoku, activeRowCell?.indexMiddle, activeRowCell?.index), [sudoku, activeRowCell, panel]);
                             const trueInHorizontal2Memoized = useMemo(() => (mark) => true_in_horizontal_2(mark, cellBig, activeColCell?.indexBig, activeColCell?.indexCells), [cellBig, activeColCell, panel]);
+                            const trueInCub2Memoized = useMemo(() => (mark) => true_in_cub_2(mark, cellMiddle, activeColCell?.indexBig, activeRowCell?.indexMiddle), [cellMiddle, activeColCell, activeRowCell, panel]);
                             const isCellError =  errorCell.some(
                               errorCells => errorCells.indexBig === indexBig && errorCells.indexMiddle === indexMiddle &&
                                 errorCells.indexCells === indexCells &&
                                 errorCells.index === index
                             )
-                            console.log(isCellError)
+
                             const isCellHidden = hiddenCells.some(
                               hiddenCell => hiddenCell.indexBig === indexBig && hiddenCell.indexMiddle === indexMiddle &&
                                 hiddenCell.indexCells === indexCells &&
@@ -118,9 +123,12 @@ const Board = () => {
 
                                 key={`${indexBig}` + `${indexMiddle}` + `${indexCells}` + `${index}`}
                                 setErrorCell={setErrorCell}
+                                errorCell={errorCell}
+                                setYellowPomark={setYellowPomark}
                                 removeHideCell={() => removeHideCell(indexBig, indexMiddle, indexCells, index)}
                                 markCell={markCell}
                                 cell={cell}
+                                trueInCub2Memoized={trueInCub2Memoized}
                                 trueInVertical2Memoized={trueInVertical2Memoized}
                                 trueInHorizontal2Memoized={trueInHorizontal2Memoized}
                                 setMarkCell={setMarkCell}
@@ -129,6 +137,7 @@ const Board = () => {
                                   activeNumber &&
                                   activeNumber === cell
                                 }
+                                yellowPomark={yellowPomark}
                                 isActiveRowCell={activeRowCell &&
                                   activeRowCell.indexMiddle === indexMiddle &&
                                   activeRowCell.index === index

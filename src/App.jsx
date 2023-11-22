@@ -5,6 +5,7 @@ import Board from "./components/board/Board.jsx";
 import TopBar from "./components/topbar/TopBar.jsx";
 import {Box} from "@mui/material";
 import Panel from "./components/panel/Panel.jsx";
+import Footer from "./components/footer/Footer.jsx";
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
         </Box>
 
       </Box>
-
+      <Footer/>
     </Box>
   )
 }

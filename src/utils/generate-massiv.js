@@ -5,6 +5,16 @@ function true_in_cub(element, massiv) {
   }
   return false;
 }
+export function true_in_cub_2(element, massiv, indexBig, indexMiddle) {
+  let count = -1
+  for (let _ of massiv) {
+    count++
+    if (_.includes(element)) {
+      return {indexBig: indexBig, indexMiddle: indexMiddle, indexCells: count, index: _.indexOf(element)}
+    }
+  }
+  return false;
+}
 
  function true_in_horizontal(element, arr_y, y) {
   for (let _ of arr_y) {
@@ -31,7 +41,7 @@ export function true_in_vertical_2(element, arr_x, x_x, x) {
     for (let i of _[x_x]) {
       count_cells++
       if (i[x] === element) {
-        console.log({indexBig: count_big, indexMiddle: x_x, indexCells: count_cells, index: x})
+
         return {indexBig: count_big, indexMiddle: x_x, indexCells: count_cells, index: x};
       }
     }

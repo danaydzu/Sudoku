@@ -7,6 +7,10 @@
     color: #ffffff !important;
     background: radial-gradient(rgba(137, 230, 50, 0.8), rgba(83, 239, 125, 0.8)) !important;
 }
+.activeYellow{
+    color: #ffffff !important;
+    background: yellow !important;
+}
 
 .activeCell{
     color: #ffffff !important;
