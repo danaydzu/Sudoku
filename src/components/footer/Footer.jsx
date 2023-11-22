@@ -12,7 +12,7 @@ const Footer = () => {
       fontSize: '1vw',
       background: 'radial-gradient(#b0e633, #53ef7d)',
     }}>
-      <Typography variant='body1'>Team № 1: Новиков Юрий, Демиркапы Денис, Раджабов Нозим, Гиллер Михаил, Черников Антон, Чуприна Виктор, Ненада Даниил </Typography>
+      <Typography variant='body1'>Team № 1: Новиков Юрий, Демиркапы Денис, Раджабов Нозим, Чуприна Виктор,Гиллер Михаил, Ненада Даниил, Черников Антон,  Евстратов Андрей </Typography>
     </Box>
   );
 };

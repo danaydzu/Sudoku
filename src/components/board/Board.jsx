@@ -26,10 +26,12 @@ const Board = () => {
   const [markCell, setMarkCell] = useState('')
   const [errorCell, setErrorCell] = useState([])
   const [yellowPomark, setYellowPomark] = useState(null)
-
+  const [level, setLevel] = useState(30)
   useEffect(() => {
+
     setHiddenCells(generateHiddenCells());
   }, []);
+
   function restartGame (){
     setSudoku(sudokuStart())
     setHiddenCells(generateHiddenCells())
@@ -41,21 +43,24 @@ const Board = () => {
     setErrorCell([])
   }
   function generateHiddenCells() {
-    const newHiddenCells = [];
-    while (newHiddenCells.length < 30) {
-      const indexBig = Math.floor(Math.random() * 3);
-      const indexMiddle = Math.floor(Math.random() * 3);
-      const indexCells = Math.floor(Math.random() * 3);
-      const index = Math.floor(Math.random() * 3);
-      const isCellHidden = newHiddenCells.some(
-        cell => cell.indexBig === indexBig && cell.indexMiddle === indexMiddle &&
-          cell.indexCells === indexCells && cell.index === index
-      );
 
-      if (!isCellHidden) {
-        newHiddenCells.push({ indexBig, indexMiddle, indexCells, index });
+    const newHiddenCells = [];
+
+
+      while (newHiddenCells.length < 30) {
+        const indexBig = Math.floor(Math.random() * 3);
+        const indexMiddle = Math.floor(Math.random() * 3);
+        const indexCells = Math.floor(Math.random() * 3);
+        const index = Math.floor(Math.random() * 3);
+        const isCellHidden = newHiddenCells.some(
+          cell => cell.indexBig === indexBig && cell.indexMiddle === indexMiddle &&
+            cell.indexCells === indexCells && cell.index === index
+        );
+
+        if (!isCellHidden) {
+          newHiddenCells.push({indexBig, indexMiddle, indexCells, index});
+        }
       }
-    }
 
     return newHiddenCells;
   }
