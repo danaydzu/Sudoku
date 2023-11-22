@@ -1,42 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import classes from './cell.module.css'
 import Cell from "./Cell.jsx";
-import {ListItem} from "@mui/material";
-const Cells = ({cells, }) => {
-  let count = -1
+import {List, ListItem} from "@mui/material";
+const Cells = ({children}) => {
 
-  const [stateCells, setStateCells] = useState(cells)
-  useEffect(()=>{
-    console.log(cells)
-  },
-    [stateCells])
   return (
 
-    <ListItem sx={{
+    <List  sx={{
       gap: '1px',
-      gridTemplateColumns: 'repeat(3, 6vmin)',
+      gridTemplateColumns: 'repeat(3, 4vw)',
+      gridTemplateRows: 'repeat(1, 4vw)',
       padding:"0",
       display: 'grid',
       textAlign: 'center',
       justifyContent: 'center',
       alignItems: 'center',
+      minWidth:'none',
       backgroundColor: 'transparent',
     }}>
-      {cells.map((cell) => {
-        count++
-        return(
-          <Cell
-            count={count}
-            stateCells={stateCells}
-            setStateCells={setStateCells}
-            cell={cell}
-
-          >
-
-        </Cell>
-        )}
-      )}
-    </ListItem>
+      {children}
+    </List>
   );
 };
 

@@ -2,16 +2,11 @@ import React from 'react';
 import classes from './cell.module.css'
 import CellMiddle from "./CellMiddle.jsx";
 
-const CellBig = ({cellBig, index}) => {
+const CellBig = ({children}) => {
 
   return (
     <div className={classes.bigCell}>
-      {cellBig.map(cellMiddle =>
-        <CellMiddle
-          cellMiddle={cellMiddle}
-        >
-        </CellMiddle>
-        )}
+      {children}
     </div>
   );
 };

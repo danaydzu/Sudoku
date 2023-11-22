@@ -26,9 +26,9 @@ function App() {
           height: '100%',
           justifyContent: 'center'
         }}>
-        <Box sx={{display: 'flex',}}>
-          <Board/>
-          <Panel/>
+        <Box sx={{display: 'flex'}}>
+          <Board />
+
         </Box>
 
       </Box>
